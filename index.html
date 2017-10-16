@@ -1,0 +1,44 @@
+<html>
+<head>
+    
+    <!-- Import jQuery libraries -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" type="text/css" href="./css/premstyle.css">
+    
+</head>
+
+<body>
+    <div id="prem_table"></div>
+    
+    <script>
+    
+        /* Define CORS proxy just in case it's needed */
+        $proxyurl = "https://cors.now.sh/";
+        
+        
+        $.ajax({
+              headers: { 'X-Auth-Token': '102514d17c12475aa4c17ca92b4d453' },
+              url: $proxyurl+'http://api.football-data.org/v1/competitions/445/leagueTable',
+              dataType: 'json',
+              type: 'GET',
+            }).done(function(response) {
+                
+                document.getElementById("prem_table").innerHTML="<table border=solid><tr><th>Logo</th><th>Team</th><th>GP</th><th>Points&emsp;</th></tr>";
+                
+                var index=0;
+                
+                while(data["standing"][index]) {
+                    $("<table border=solid><tr><td><img class='logo' src="+data["standing"][index]["crestURI"]+"></td><td>"+data["standing"][index]["teamName"]+"</td><td>"+data["standing"][index]["playedGames"]+"</td><td>"+data["standing"][index]["points"]+"</td></tr></table>").appendTo("#prem_table");
+                    index++;
+                }
+            
+            $("</table>").appendTo("#prem_table");
+        });
+        
+    
+    </script>
+    
+</body>
+</html>
